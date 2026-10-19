@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>اختبار الوحدة الثانية | البرمجة والذكاء الاصطناعي | المهندس محمد شاهين</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0f1e;--bg-card:#111827;--card-alt:#1a2236;--primary:#3b82f6;--accent:#06b6d4;--trait-a:#3b82f6;--trait-b:#a855f7;--trait-c:#10b981;--trait-d:#f97316;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--text:#f1f5f9;--text-dim:#94a3b8;--border:rgba(255,255,255,0.1);--radius:18px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;min-height:100vh;line-height:1.6;}
+button,a{transition:all 0.2s ease;border:none;text-decoration:none;cursor:pointer;}
+.container{max-width:900px;margin:0 auto;padding:20px;}
+.brand-card{background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);border:1px solid var(--primary);border-radius:var(--radius);padding:30px;margin-bottom:30px;position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.5);border-bottom:6px solid var(--primary);}
+.designer-profile{display:flex;align-items:center;gap:25px;flex-direction:column;text-align:center;}
+@media (min-width:650px){.designer-profile{flex-direction:row;text-align:right;}}
+.designer-img{width:110px;height:110px;border-radius:24px;border:4px solid var(--primary);object-fit:cover;box-shadow:0 0 25px rgba(59,130,246,0.4);}
+.designer-info h1{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:5px;}
+.designer-info p{color:var(--primary);font-weight:800;font-size:1rem;margin-bottom:5px;}
+.designer-info .sub{color:var(--text-dim);font-weight:700;font-size:0.85rem;margin-bottom:15px;}
+.social-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+@media (min-width:650px){.social-links{justify-content:flex-start;}}
+.s-link{background:rgba(59,130,246,0.15);border:1px solid var(--primary);color:var(--primary);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;}
+.s-link:hover{background:var(--primary);color:white;}
+.screen{display:none;animation:fadeIn 0.5s ease-out;}
+.screen.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.hero-sec{text-align:center;margin-bottom:40px;}
+.hero-sec h2{font-size:2.6rem;font-weight:900;margin-bottom:10px;}
+.hero-sec h2 span{color:var(--accent);}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:30px 0;}
+@media (min-width:600px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
+.stat-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;}
+.stat-item b{font-size:1.3rem;color:var(--primary);display:block;}
+.stat-item span{font-size:11px;color:var(--text-dim);}
+.input-name{width:100%;padding:18px;border-radius:var(--radius);border:2px solid var(--border);background:var(--bg-card);color:white;text-align:center;font-size:1.1rem;margin-bottom:20px;outline:none;}
+.input-name:focus{border-color:var(--primary);}
+.btn-main{background:var(--primary);color:white;width:100%;padding:18px;border-radius:var(--radius);font-size:1.3rem;font-weight:900;box-shadow:0 10px 30px rgba(59,130,246,0.3);}
+.btn-main:hover{transform:scale(1.02);background:#2563eb;}
+.exam-bar{position:sticky;top:0;background:rgba(10,15,30,0.95);backdrop-filter:blur(10px);z-index:1000;border-bottom:1px solid var(--border);padding:12px 0;}
+.bar-inner{display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:0 auto;padding:0 20px;}
+.timer{font-family:'Fira Code',monospace;color:var(--warning);font-weight:700;font-size:1.3rem;}
+.progress-wrap{height:5px;background:#1e293b;width:100%;margin-top:10px;}
+.progress-fill{height:100%;background:var(--primary);width:0%;transition:width 0.3s;}
+.q-card{background:var(--bg-card);border-radius:var(--radius);padding:30px;margin-top:25px;border:1px solid var(--border);box-shadow:0 15px 40px rgba(0,0,0,0.4);}
+.q-type{display:inline-block;padding:4px 15px;border-radius:99px;background:rgba(59,130,246,0.1);border:1px solid var(--primary);color:var(--primary);font-size:12px;font-weight:800;margin-bottom:15px;}
+.q-text{font-size:1.2rem;font-weight:800;margin-bottom:20px;line-height:1.6;}
+.code-box{background:#010409;border-radius:12px;padding:20px;margin-bottom:25px;border:1px solid #30363d;direction:ltr;text-align:left;}
+.code-box pre{font-family:'Fira Code',monospace;font-size:0.95rem;color:#c9d1d9;white-space:pre-wrap;}
+.choices-grid{display:grid;grid-template-columns:1fr;gap:15px;}
+@media (min-width:600px){.choices-grid{grid-template-columns:1fr 1fr;}}
+.choice-btn{background:var(--card-alt);border:2px solid transparent;border-radius:14px;padding:18px;color:white;text-align:right;display:flex;align-items:center;gap:12px;font-weight:700;transition:0.2s;position:relative;font-family:'Cairo',sans-serif;font-size:0.95rem;}
+.choice-btn:hover:not(:disabled){background:rgba(255,255,255,0.05);}
+.choice-btn.trait-a{border-right:6px solid var(--trait-a);}
+.choice-btn.trait-b{border-right:6px solid var(--trait-b);}
+.choice-btn.trait-c{border-right:6px solid var(--trait-c);}
+.choice-btn.trait-d{border-right:6px solid var(--trait-d);}
+.choice-idx{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;color:white;}
+.trait-a .choice-idx{background:var(--trait-a);}
+.trait-b .choice-idx{background:var(--trait-b);}
+.trait-c .choice-idx{background:var(--trait-c);}
+.trait-d .choice-idx{background:var(--trait-d);}
+.choice-btn.correct{background:rgba(16,185,129,0.2) !important;border-color:var(--success) !important;color:var(--success);}
+.choice-btn.wrong{background:rgba(239,68,68,0.2) !important;border-color:var(--danger) !important;color:var(--danger);}
+.results-header{text-align:center;padding:40px 0;}
+.score-box{width:160px;height:160px;border-radius:50%;border:10px solid var(--primary);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 0 30px var(--primary);}
+.score-box b{font-size:3.5rem;line-height:1;}
+.score-box span{font-size:1rem;color:var(--text-dim);}
+.analysis-sec{background:var(--bg-card);border-radius:var(--radius);padding:25px;margin-bottom:20px;border:1px solid var(--border);}
+.analysis-sec h3{font-size:1.1rem;font-weight:800;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:10px;}
+.cat-row{display:flex;align-items:center;gap:15px;margin-bottom:12px;}
+.cat-lbl{width:150px;font-size:12px;color:var(--text-dim);}
+.cat-bar-bg{flex:1;height:10px;background:#1e293b;border-radius:99px;overflow:hidden;}
+.cat-bar-fill{height:100%;border-radius:99px;transition:width 1s ease;}
+.wa-btn{background:#25d366;color:white;padding:18px 40px;border-radius:var(--radius);font-weight:900;font-size:1.2rem;display:inline-flex;align-items:center;gap:12px;margin:20px 0;box-shadow:0 10px 25px rgba(37,211,102,0.4);}
+.sol-item{border-radius:12px;border:1px solid var(--border);padding:20px;margin-bottom:15px;background:var(--card-alt);}
+.sol-item.ok{border-right:6px solid var(--success);}
+.sol-item.fail{border-right:6px solid var(--danger);}
+.sol-q{font-weight:800;font-size:14px;margin-bottom:10px;line-height:1.6;}
+.sol-explain{font-size:13px;color:var(--text-dim);background:rgba(0,0,0,0.3);padding:15px;border-radius:8px;margin-top:10px;line-height:1.6;}
+.sol-explain strong{color:var(--primary);}
+</style>
+</head>
+<body>
+<div class="container">
+<div id="screen-welcome" class="screen active">
+<div class="brand-card">
+<div class="designer-profile">
+<img src="https://cdn.jsdelivr.net/gh/mhshahen6/mh_photo@main/1770841296798.webp" class="designer-img" alt="محمد شاهين">
+<div class="designer-info">
+<h1>المهندس محمد محمود شاهين</h1>
+<p>خبير البرمجة والذكاء الاصطناعي</p>
+<div class="sub">بالتربية والتعليم • إدارة قلين التعليمية</div>
+<div class="social-links">
+<a href="https://aiqureo.blogspot.com" class="s-link" target="_blank">🌐 المدونة</a>
+<a href="https://aiqureo.blogspot.com/p/qureo.html" class="s-link" target="_blank">📘 كيريو</a>
+<a href="https://mhshahe.github.io/cv" class="s-link" target="_blank">👤 السيرة الذاتية</a>
+<a href="https://mhshahe.github.io/tests" class="s-link" target="_blank">📝 الاختبارات</a>
+<a href="https://mhsh8.netlify.app" class="s-link" target="_blank">🚀 البوابة</a>
+</div>
+<div style="margin-top:15px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+<a href="tel:01029966799" class="s-link" style="border-color:var(--success);color:var(--success);background:rgba(16,185,129,0.15);">📱 01029966799</a>
+<a href="tel:01043647668" class="s-link" style="border-color:var(--success);color:var(--success);background:rgba(16,185,129,0.15);">📱 01043647668</a>
+<a href="tel:01013077856" class="s-link" style="border-color:var(--success);color:var(--success);background:rgba(16,185,129,0.15);">📱 01013077856</a>
+</div>
+</div>
+</div>
+</div>
+<div class="hero-sec">
+<h2>اختبار <span>الوحدة الثانية</span></h2>
+<p style="color:var(--text-dim)">مادة البرمجة والذكاء الاصطناعي • الصف الثاني الثانوي • بكالوريا 2026</p>
+</div>
+<div class="stats-grid">
+<div class="stat-item"><b>50</b><span>سؤال MCQ</span></div>
+<div class="stat-item"><b>60</b><span>دقيقة</span></div>
+<div class="stat-item"><b>شامل</b><span>كل أجزاء الوحدة</span></div>
+<div class="stat-item"><b>تحليل</b><span>تقرير مفصل</span></div>
+</div>
+<div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); padding: 20px; border-radius: 12px; font-size: 14px; margin-bottom: 30px; text-align: center;">
+مرحباً بك في اختبار الوحدة الثانية. يشمل هذا الاختبار جميع أجزاء الوحدة: تاريخ الحوسبة، الذكاء الاصطناعي، الأمن السيبراني، والحوسبة الحديثة. <br>
+<b style="color:var(--warning)">تنبيه:</b> لن تظهر الإجابات الصحيحة إلا بعد الانتهاء من جميع الأسئلة.
+</div>
+<input type="text" id="user-name" class="input-name" placeholder="أدخل اسمك الثلاثي للمتابعة...">
+<button class="btn-main" onclick="startExam()">⚡ ابدأ الاختبار الآن</button>
+</div>
+
+<div id="screen-exam" class="screen">
+<div class="exam-bar">
+<div class="bar-inner">
+<div id="q-counter" style="font-weight:900;">السؤال 1 / 50</div>
+<div class="timer" id="timer">60:00</div>
+</div>
+<div class="progress-wrap"><div class="progress-fill" id="progress-fill"></div></div>
+</div>
+<div class="q-card">
+<div class="q-type" id="q-category">عام</div>
+<div class="q-text" id="q-text"></div>
+<div id="code-area" class="code-box" style="display:none;"></div>
+<div class="choices-grid" id="choices-box"></div>
+<div id="feedback-area" style="margin-top:20px;"></div>
+</div>
+</div>
+
+<div id="screen-results" class="screen">
+<div class="results-header">
+<div class="score-box">
+<b id="final-score">0</b>
+<span>من 50</span>
+</div>
+<h2 id="result-status">ممتاز!</h2>
+<p style="color:var(--text-dim); margin-top: 10px;">تقرير أداء الطالب: <span id="res-student-name" style="color:var(--primary)"></span></p>
+<a href="#" id="wa-link" class="wa-btn" target="_blank">📲 إرسال النتيجة للمهندس محمد شاهين (01043647668)</a>
+</div>
+<div class="analysis-sec">
+<h3>📡 تحليل الأداء حسب المحور</h3>
+<div id="category-analysis"></div>
+</div>
+<div class="analysis-sec">
+<h3>📋 مراجعة الحلول والإجابات الصحيحة</h3>
+<div id="solutions-list"></div>
+</div>
+<div style="text-align:center; padding: 30px 0; color:var(--text-dim); font-size: 12px; border-top: 1px solid var(--border);">
+تصميم وبرمجة: المهندس محمد محمود شاهين © 2026<br>
+إدارة قلين التعليمية - بالتربية والتعليم
+</div>
+</div>
+</div>
+
+<script>
+const QUESTIONS = [
+{id:1,cat:'تاريخ الحوسبة',q:'ما المكون الإلكتروني الأساسي الذي ميز حواسيب الجيل الأول (1940-1956) وتسبب في كبر حجمها وانبعاث حرارة شديدة؟',choices:['الترانزستورات المنفصلة (Transistors)','الدوائر المتكاملة (Integrated Circuits)','المعالجات الدقيقة عالية الكثافة (Microprocessors)','الصمامات المفرغة (Vacuum Tubes)'],ans:3,explain:'اعتمدت حواسيب الجيل الأول حصرياً على الصمامات المفرغة للتحكم في النبضات الكهربائية، وكانت ضخمة الحجم وتستهلك طاقة هائلة وتولد حرارة مرتفعة.'},
+{id:2,cat:'تاريخ الحوسبة',q:'ما الصياغة العلمية الدقيقة للملاحظة التجريبية المعروفة باسم «قانون مور» في تطور المعالجات؟',choices:['تضاعف عدد الترانزستورات على الدائرة المتكاملة تقريباً كل سنتين مع زيادة قدرة المعالجة','تضاعف سرعة التردد الزمني (Clock Speed) للمعالج كل ستة أشهر دون زيادة في الترانزستورات','انخفاض استهلاك الطاقة الكهربائية للمعالج بمقدار النصف كل سنة مع ثبات الأداء','تضاعف حجم الشريحة السليكونية الفيزيائي كل عامين للتحكم في الانبعاث الحراري'],ans:0,explain:'ينص قانون مور على أن عدد الترانزستورات التي يمكن وضعها في شريحة الدائرة المتكاملة يتضاعف تقريباً كل سنتين، مما أدى لزيادة متسارعة في القوة الحسابية.'},
+{id:3,cat:'تاريخ الحوسبة',q:'ما الظاهرة الفيزيائية التي تصبح عائقاً رئيسياً أمام استمرار تصغير الترانزستورات إلى مقاييس النانومتر الدقيقة؟',choices:['تسرب التيار الكهربائي عبر الحواجز الرقيقة وظهور التأثيرات الكمومية مثل النفق الكمومي','زيادة المقاومة الأومية للموصلات النحاسية مما يمنع مرور النبضات الكهربائية كلياً','تحول المادة السليكونية كلياً إلى موصلات فائقة التوصيل في درجات الحرارة العادية','توقف الشحنات الكهربائية عن الحركة نتيجة الانكماش الحراري للشرائح'],ans:0,explain:'عند تصغير الترانزستور لأبعاد نانوية دقيقة جداً، تصبح العوازل رقيقة للغاية، مما يسبب تسرب الإلكترونات بفعل ظاهرة النفق الكمومي (Quantum Tunneling).'},
+{id:4,cat:'تاريخ الحوسبة',q:'ما الخصيصة الفيزيائية التي تميز الكيوبت (Qubit) في الحوسبة الكمومية عن البت الكلاسيكي عند تمثيل البيانات؟',choices:['احتفاظ الكيوبت بالحالة الرقمية بشكل دائم دون الحاجة لترددات مغناطيسية','استفادة الكيوبت من التراكب الكمي ليكون في حالة تجمع بين 0 و 1 في نفس الوقت','اعتماد الكيوبت على اتجاه واحد فقط للتيار الكهربائي في الاتصالات الرقمية','انحصار الكيوبت في قيمة حتمية واحدة فقط في اللحظة الواحدة إما 0 أو 1'],ans:1,explain:'يتواجد البت الكلاسيكي في حالة محددة حتمية (إما 0 أو 1)، بينما يستفيد الكيوبت الكمومي من مبدأ التراكب الكمي لتمثيل جميع الحالات المحتملة بالتوازي.'},
+{id:5,cat:'الحوسبة الحديثة',q:'أي المفاهيم التالية يعبر دقيقاً عن بيع وشراء السلع والخدمات وإجراء المعاملات المالية عبر شبكة الإنترنت؟',choices:['الخدمات الحكومية الرقمية (E-Government)','المنصات التعليمية المفتوحة (MOOCs)','التجارة الإلكترونية (E-commerce)','منصات العمل الحر الرقمي (Freelancing Platforms)'],ans:2,explain:'التجارة الإلكترونية (E-commerce) هي المنظومة التقنية والمجتمعية المختصة بتبادل السلع والخدمات وتنفيذ المعاملات التجارية والمالية إلكترونياً.'},
+{id:6,cat:'الحوسبة الحديثة',q:'ما النموذج التقني الذي يقدم الموارد الحاسوبية (كالتخزين والمعالجة وقواعد البيانات) كخدمة فورية حسب الطلب عبر الإنترنت؟',choices:['الحوسبة المستقلة في الموقع (On-Premises Infrastructure)','الحوسبة السحابية (Cloud Computing)','الحوسبة الطرفية الميدانية (Edge Computing)','الحوسبة الشبكية الموزعة محلياً (Local Grid Computing)'],ans:1,explain:'تُعرف الحوسبة السحابية بأنها توفير موارد تكنولوجيا المعلومات مرونةً وحسب الطلب عبر الإنترنت بأسلوب الخدمة الذاتية.'},
+{id:7,cat:'مفاهيم AI',q:'ما المجال العلمي والشامل الذي يهدف لبناء أنظمة وحواسيب قادرة على أداء مهام تحاكي الذكاء البشري مثل التعلم والاستنتاج؟',choices:['الذكاء الاصطناعي (Artificial Intelligence)','البرمجة الإجرائية الثابتة (Procedural Programming)','أتمتة المكاتب الكلاسيكية (Office Automation)','إدارة قواعد البيانات المترابطة (RDBMS)'],ans:0,explain:'الذكاء الاصطناعي (AI) هو العلم والمظلة الشاملة التي تهدف لتطوير أنظمة حاسوبية ذكية تحاكي السلوك المعرفي البشري.'},
+{id:8,cat:'مفاهيم AI',q:'ما الذي يحدد مفهوم «التعلم العميق (Deep Learning)» بالمقارنة مع التعلم الآلي التقليدي؟',choices:['اعتماده الحصري على الشروط المنطقية الصريحة (If-Then Rules) المعرفة يدوياً','استخدامه لشبكات عصبية اصطناعية متعددة الطبقات لاستخلاص الميزات والأنماط المعقدة ذاتياً','اقتصاره على خوارزميات شجرة القرار البسيطة للبيانات المجدولة','عدم حاجته لبيانات تدريبية أو أوزان خوارزمية أثناء التنبؤ'],ans:1,explain:'التعلم العميق فرع متخصص يعتمد على المعماريات العصبية الاصطناعية العميقة ذات الطبقات المتعددة لمعالجة واستخلاص الأنماط المعقدة.'},
+{id:9,cat:'مفاهيم AI',q:'ما الخصيصة التشغيلية التي تميز أنظمة «الذكاء الاصطناعي التوليدي (GenAI)» عن النماذج التنبؤية والتصنيفية التقليدية؟',choices:['قدرتها على تصنيف البيانات الواردة إلى فئات محدودة مسبقاً فقط','اقتصارها على حساب قيم الانحدار الخطائي والتنبؤ الأرقام','قدرتها على إنشاء محتوى مبتكر جديد (كنصوص، صور، أصوات، وشفرات) يحاكي النماذج البشرية','تحديد القيمة العظمى والصغرى في البيانات المجدولة الإحصائية'],ans:2,explain:'يتميز الذكاء الاصطناعي التوليدي بإنتاج وتخليق بيانات ومحتويات جديدة كلياً تعكس الأنماط التي تعلمها من بيانات التدريب.'},
+{id:10,cat:'مفاهيم AI',q:'ما الذي تعنيه ظاهرة «الهلوسة (Hallucination)» في مخرجات النماذج اللغوية الكبيرة؟',choices:['توليد إجابات ومعلومات تبدو معقولة ومقنعة صياغياً لكنها غير صحيحة أو خيالية واقعياً','ظاهرة انحراف النموذج (Model Drift) نتيجة تغير البيانات الزمنية','حفظ بيانات التدريب حرفياً وعجز النموذج عن التعميم (Overfitting)','انخفاض دقة التنبؤ نتيجة صغر حجم الشبكة العصبية (Underfitting)'],ans:0,explain:'تحدث الهلوسة عندما ينتج النموذج اللغوي إجابات واثقة ومسبوكة لغوياً ولكنها تخالف الحقائق الواقعية أو تختلق معلومات لا أساس لها.'},
+{id:11,cat:'مفاهيم AI',q:'كيف تعمل «أنظمة التوصية (Recommendation Systems)» القائمة على الذكاء الاصطناعي في المنصات الرقمية؟',choices:['بناء محرك البحث على مطابقة الكلمات المفتاحية الحرفية دون تحليل السلوك','استخدام الفرز الأبجدي العشوائي لعرض المنتجات والمحتوى للمستخدمين','بتوقع تفضيلات المستخدم واقتراح محتوى مخصص بناءً على تحليلات سلوكه وسجل تفاعلاته السابق','عرض المحتوى الأكثر رواجاً عالمياً بصفة ثابتة لجميع المستخدمين دون تخصيص'],ans:2,explain:'تستخدم أنظمة التوصية خوارزميات التعلم الآلي لتحليل السلوك التاريخي للمستخدم واقتراح منتجات ومحتوى مخصص بدقة.'},
+{id:12,cat:'الحوسبة الحديثة',q:'ما الميزة الجوهرية لاستخدام «الحوسبة الطرفية (Edge Computing)» في معالجة بيانات الأجهزة الذكية والمستشعرات؟',choices:['مركزية التخزين والمعالجة في خوادم سحابية رئيسية بعيدة','معالجة البيانات بالقرب من مصدر إنتاجها لتقليل زمن الاستجابة (Latency) وتخفيف الضغط على السحابة','إرسال كامل البيانات الخام غير المعالجة عبر شبكة الملاحة البعيدة أولاً','تجميع البيانات في وسائط تخزين أوفلاين ونقلها يدوياً أسبوعياً'],ans:1,explain:'تقوم الحوسبة الطرفية بوضع قدرات المعالجة بالقرب من المستشعرات والأجهزة، مما يقلل التأخير الزمني ويضمن الاستجابة السريعة.'},
+{id:13,cat:'أخلاقيات AI',q:'ما التعريف العلمي الدقيق لـ «التحيز الخوارزمي (Algorithmic Bias)» في الذكاء الاصطناعي؟',choices:['خطأ التناقص في دقة النموذج نتيجة صغر حجم الذاكرة المؤقتة','ميل نظامي في مخرجات النظام تؤدي إلى نتائج وتصنيفات غير عادلة أو تمييزية تجاه أفراد أو فئات','ظاهرة التكيف الزائد للنموذج مع عينات الضوضاء (Overfitting)','انخفاض سرعة المعالجة أثناء حساب مصفوفات الأوزان'],ans:1,explain:'التحيز الخوارزمي هو وجود أخطاء أو انحرافات نظامية في نتائج الخوارزمية تُعطي ميزة غير مستحقة أو تظلم فئات محددة.'},
+{id:14,cat:'أخلاقيات AI',q:'ما السبب الرئيسي والأكثر شيوعاً لنشوء التحيز الخوارزمي في تطبيقات الذكاء الاصطناعي الميدانية؟',choices:['زيادة عدد معاملات (Parameters) النموذج فوق المليار معامل','تغذية النموذج ببيانات تدريبية غير متوازنة أو تحوي تمييزاً وانحيازات تاريخية سابقة','استخدام خوارزميات التجميع غير الخاضع للإشراف (Unsupervised Clustering)','تسريع عملية الانحدار التدريجي (Gradient Descent) أثناء التدريب'],ans:1,explain:'يتعلم الذكاء الاصطناعي أنماطه من بيانات التدريب؛ فإن كانت البيانات غير شمولية أو تعكس تحيزات تاريخية، فإن النموذج سيعيد إنتاجها.'},
+{id:15,cat:'أخلاقيات AI',q:'ما الهدف الأساسي لمفهوم «الذكاء الاصطناعي القابل للتفسير (XAI)»؟',choices:['زيادة القوة الحسابية للنموذج عبر إخفاء المعالم الداخلية','تقديم مبررات ودلائل مفهومة للبشر تشرح كيف ولماذا وصل النموذج إلى قرار أو تنبؤ معين','تشفير النموذج العصبوني لحماية الملكية الفكرية للشفرة','تحويل النموذج كلياً إلى نظام صندوق أسود غير قابل للمراجعة'],ans:1,explain:'يهدف XAI إلى تفكيك غموض الصندوق الأسود بإظهار الأسباب والميزات والأوزان التي أدت بالذكاء الاصطناعي إلى قرار محدد.'},
+{id:16,cat:'أخلاقيات AI',q:'أي المبادئ الأخلاقية للذكاء الاصطناعي ينص على ضرورة معاملة جميع الأفراد والجماعات بتكافؤ ودون تمييز جائر في النتائج؟',choices:['الشفافية (Transparency)','المساءلة (Accountability)','العدالة (Fairness)','الخصوصية (Privacy)'],ans:2,explain:'يركز مبدأ العدالة (Fairness) على ضمان عدم تسبب الخوارزمية في ممارسات تمييزية أو جائرة ضد أي فئة.'},
+{id:17,cat:'أخلاقيات AI',q:'ما المبدأ الأخلاقي الذي يُلزم المؤسسات بإعلام المستخدمين عندما يتفاعلون مع نظام AI وتوضيح حدود قدراته وآلية عمله؟',choices:['العدالة (Fairness)','الشفافية (Transparency)','المساءلة (Accountability)','الأمان الفني (Technical Safety)'],ans:1,explain:'يتطلب مبدأ الشفافية إتاحة معلومات واضحة للمستخدم حول طبيعة نظام الذكاء الاصطناعي والبيانات المستخدمة والحدود التشغيلية.'},
+{id:18,cat:'أخلاقيات AI',q:'ما المبدأ الأخلاقي الذي يحدد الأطراف والجهات المعنية المسؤولة قانونياً وإدارياً عن مخرجات وأخطاء نظام الذكاء الاصطناعي؟',choices:['الشفافية (Transparency)','العدالة (Fairness)','المساءلة والمسؤولية (Accountability)','الخصوصية وحماية البيانات (Privacy)'],ans:2,explain:'يقضي مبدأ المساءلة بتحديد من يُحاسب ويتحمل التبعات القانونية والأخلاقية فور حدوث ضرر ناتج عن قرارات نظام الذكاء الاصطناعي.'},
+{id:19,cat:'الأمن السيبراني',q:'أي البروتوكولات التالية يُستخدم لتأمين وتشفير حركة المرور والبيانات المتبادلة بين المتصفح وخوادم الويب عبر بروتوكول TLS؟',choices:['HTTP غير المشفر','FTP لنقل الملفات المفتوح','DNS للاستعلام عن عناوين النطاق','HTTPS'],ans:3,explain:'HTTPS هو النسخة الآمنة من بروتوكول نقل النص الفائق، حيث يتم تشفير جميع البيانات المتبادلة باستخدام بروتوكول TLS.'},
+{id:20,cat:'الأمن السيبراني',q:'كيف يحقق بروتوكول TLS التوازن بين الأمان العالي والسرعة الفائقة عند نقل كميات كبيرة من البيانات عبر الشبكة؟',choices:['استخدام التشفير غير المتماثل للتأكد من الهوية وتبادل مفتاح جلسة متماثل أسرع لتشفير البيانات الفعلية','الاعتماد الحصري على التشفير غير المتماثل بـ RSA لتشفير كافة حزم البيانات المتبادلة','استخدام دوال الهاش غير القابلة للعكس لتشفير كافة نص البيانات بدلاً من التشفير المتماثل','الاعتماد على التشفير المتماثل بمفتاح ثابت معلن لجميع المشتركين عبر الشبكة'],ans:0,explain:'يستخدم TLS التشفير غير المتماثل للتحقق من الهوية وتبادل مفتاح جلسة متماثل، ثم يستخدم التشفير المتماثل السريع لتشفير حركة البيانات.'},
+{id:21,cat:'الأمن السيبراني',q:'ما الوظيفة الأساسية لـ «الشهادة الرقمية (Digital Certificate)» الصادرة عن جهة توثيق موثوقة (CA) في بروتوكول HTTPS؟',choices:['إنشاء نفق مشفر بين الأجهزة الطرفية عبر الـ VPN','ربط المفتاح العام للمؤسسة بهويتها الرسمية واسم نطاقها للتحقق من أصل الخادم','حظر طلبات SQL الإجرائية المشبوهة على الخادم','تشفير كلمات المرور في قاعدة البيانات باستخدام دالة الهاش'],ans:1,explain:'تُصدر جهات التوثيق CA الشهادات الرقمية لربط المفتاح العام للمؤسسة واسم النطاق بكيانها القانوني، مما يتسنى للمتصفح التأكد من عدم التزييف.'},
+{id:22,cat:'الأمن السيبراني',q:'أي الآليات التشفيرية التالية تضمن عدم تعديل المستند المتبادل وتوفر دليلاً يمنع المرسل من إنكار إرساله (عدم التنصل)؟',choices:['التشفير المتماثل بمفتاح سرّي مشترك','دالة الهاش العادية دون مفاتيح خاصة','التوقيع الرقمي (Digital Signature)','رمز المصادقة الرسائل المتماثل (HMAC)'],ans:2,explain:'يُنشأ التوقيع الرقمي بتشفير البصمة الرقمية للمستند بالمفتاح الخاص للمرسل، مما يضمن سلامة البيانات ويمنع المرسل من إنكار صدورها.'},
+{id:23,cat:'الأمن السيبراني',q:'أي التكوينات التالية يمثل تطبيقاً صحيحاً ومكتملاً لنظام المصادقة متعددة العوامل (MFA)؟',choices:['استخدام كلمة مرور نصية مطولة متبوعة بكلمة مرور نصية أخرى','إدخال كلمة المرور النصية ثم الرمز السري PIN المكون من أربعة أرقام','إدخال اسم المستخدم ورقم الموظف الوظيفي','إدخال كلمة المرور (عامل معرفة) متبوعة برمز متغير OTP من تطبيق الموبايل (عامل حيازة)'],ans:3,explain:'يتطلب MFA دمج عاملين أو أكثر من فئات مختلفة ومستقلة: شيء تعرفه (كلمة مرور) وشيء تملكه (هاتف/بطاقة) أو شيء أنت عليه (بصمة).'},
+{id:24,cat:'الأمن السيبراني',q:'إلى أي فئات عوامل المصادقة تنتمي بصمة الإصبع، التعرف على الوجه، وبصمة قزحية العين؟',choices:['عوامل السمة الحيوية (Inherence Factor)','عوامل المعرفة (Knowledge Factor)','عوامل الحيازة (Possession Factor)','عوامل الموقع الجغرافي (Location Factor)'],ans:0,explain:'تندرج الخصائص المادية أو البيولوجية الفريدة للشخص تحت فئة عوامل السمة الحيوية (Inherence/Biometrics).'},
+{id:25,cat:'الأمن السيبراني',q:'ما الدور الأمني الجوهري الذي يقوم به «جدار الحماية (Firewall)» في أمان الشبكات؟',choices:['توليد شهادات التوثيق الرقمية للأجهزة الموصلة','فحص حركة المرور الشبكية المارة وسماحها أو حظرها وفق قواعد أمنية مسبقة','تشفير البيانات الساكنة المجهزة في قواعد البيانات','توجيه الحزم عبر الألياف الضوئية بأقصى سرعة فيزيائية'],ans:1,explain:'يعمل جدار الحماية كنقطة تفتيش أمنية تفحص حزم البيانات وتطبق قواعد التحكم في الوصول للسماح بها أو منعها.'},
+{id:26,cat:'الأمن السيبراني',q:'ما الغرض الرئيسي من استخدام «الشبكات الافتراضية الخاصة (VPN)» عند اتصال الموظفين بالشبكة الداخلية من الخارج؟',choices:['تسريع معدل استجابة أجهزة الروترات في الشبكة المحلية','إنشاء نفق مشفر وآمن لنقل حركة المرور عبر شبكة غير آمنة كالإنترنت','توزيع الأحمال الحسابية بين أجهزة الموظفين تلقائياً','منع الموظفين من تصفح المواقع الإخبارية أثناء العمل'],ans:1,explain:'تُنشئ تقنية VPN نفقاً أمنياً مشفراً يُغلف البيانات المتبادلة بين جهاز الموظف البعيد وشبكة الشركة عبر الإنترنت العام.'},
+{id:27,cat:'الأمن السيبراني',q:'ما الهدف الهيكلي من وضع خوادم الويب والبريد الإلكتروني الموجهة للجمهور داخل «المنطقة المعزولة (DMZ)»؟',choices:['عزل الخوادم العامة عن الشبكة الداخلية الحساسة لمنع اختراق الشبكة الداخلية فور تعرض الخادم العام للاختراق','وضع الخوادم العامة في نفس الجزء مع قواعد البيانات المالية لتسهيل الربط','حظر وصول جميع المستخدمين الخارجيين من الاتصال بخادم الويب','إلغاء جدران الحماية الخارجية لتخفيف الضغط على الشبكة'],ans:0,explain:'تُعد DMZ منطقة شبكية عازلة تُوضع فيها الخوادم المفتوحة للجمهور لضمان عدم تمكن المهاجم من التنقل الجانبي للشبكة الداخلية.'},
+{id:28,cat:'الأمن السيبراني',q:'ما الذي يقصده مهندسو الأمان بتطبيق مبدأ «الدفاع في العمق (Defense in Depth)»؟',choices:['الاعتماد الكامل على جدار حماية شبكي واحد عالي الكفاءة عند مدخل الشركة','تطبيق طبقات وضوابط أمنية متعددة ومتدرجة لحماية الأصول بحيث لا يؤدي خرق أحدهما لسقوط النظام بالكامل','التشفير غير المتماثل لجميع أجهزة الكمبيوتر بدون تقييد الصلاحيات','تفعيل برامج الحماية على سيرفر قاعدة البيانات فقط وتجاهل الأجهزة الطرفية'],ans:1,explain:'الدفاع في العمق استراتيجية تعتمد على توزيع عناصر الدفاع الأمني في طبقات متعاقبة لضمان الأمان الفعال.'},
+{id:29,cat:'الأمن السيبراني',q:'ما المبدأ الأساسي الذي تقوم عليه معمارية «انعدام الثقة (Zero Trust Architecture)»؟',choices:['منح الثقة الكاملة التلقائية لأي مستخدم أو جهاز بمجرد وجوده داخل الشبكة الداخلية','افتراض الخطر دائماً والتحقق والتفويض المستمر والتشفير لكل طلب وصول بغض النظر عن موقع المستخدم','الوثوق الفوري بالاتصالات الواردة عبر الـ VPN دون الحاجة لمصادقة إضافية','إلغاء التحكم في صلاحيات الوصول واقتصاره على كلمة المرور الرئيسية'],ans:1,explain:'تتخلص معمارية Zero Trust من مفهوم الداخل الموثوق، وتطبق مبدأ التحقق والتفويض الشامل المستمر لكل طلب.'},
+{id:30,cat:'الأمن السيبراني',q:'لماذا أصبحت استراتيجية «المحيط الأمني التقليدي» (Perimeter Security) غير كافية لحماية المؤسسات الحديثة؟',choices:['لارتفاع تكلفة صيانة جدران الحماية الخارجية مقارنة بالبرامج الأخرى','لعدم قدرة جدران الحماية على التشفير باستخدام خوارزمية AES-256','للتطور السريع في سعة أجهزة التخزين الصلبة داخل المؤسسة','بسبب انتشار الحوسبة السحابية، الأجهزة المحمولة، والعمل عن بُعد مما تلاشى معه الحدود الفيزيائية الواضحة للشبكة'],ans:3,explain:'طمس الاعتماد على السحابة وتطبيقات SaaS والعمل عن بُعد الحدود الفيزيائية للشبكة، مما أدى لعدم إمكانية تعريف محيط أمني مغلق.'},
+{id:31,cat:'الأمن السيبراني',q:'أي التدابير التالية يقع مباشرة ضمن طبقة «حماية الأجهزة الطرفية (Endpoints)» في نموذج الدفاع في العمق؟',choices:['تجهيز جدار حماية التطبيقات WAF أمام خادم الويب في DMZ','تسيير أنفاق الـ VPN المشفرة بين الفروع الرئيسية والفرعية','تثبيت برامج مكافحة الفيروسات، تفعيل جدران الحماية الشخصية، وتحديث أنظمة تشغيل أجهزة الموظفين','تفعيل خادم القفز Bastion Host لإدارة أجهزة الشبكة المركزية'],ans:2,explain:'تُعنى طبقة حماية الأجهزة الطرفية بتحصين أجهزة الكمبيوتر والهواتف عبر برامج Antivirus/EDR والتحديثات المستمرة.'},
+{id:32,cat:'إدارة الحوادث',q:'ما التعريف المعتمد لـ «الحادث الأمني (Security Incident)» في بيئة أمن المعلومات؟',choices:['حدث مجدول لتنفيذ عمليات الصيانة والترقية الأسبوعية في السيرفرات','حدث مؤكد تهديدي يمس بالسلبي سرية البيانات أو سلامتها أو إتاحتها أو يخالف السياسات الأمنية للمؤسسة','فشل ترقية نظام التشغيل التلقائي بسبب انقطاع الاتصال المؤقت','تطبيق السياسات الأمنية الجديدة بفرض كلمات مرور معقدة'],ans:1,explain:'الحادث الأمني هو وقوع حدث فعلي يُهدد أو يخرق إحدى الركائز الأمنية الثلاث (السرية، السلامة، التوافرية) أو ينتهك السياسات.'},
+{id:33,cat:'إدارة الحوادث',q:'ما الأنشطة الجوهرية التي تتم خلال مرحلة «التحضير والإعداد (Preparation)» في دورة حياة الاستجابة للحوادث؟',choices:['عزل السيرفر المصاب شبكياً فور اكتشاف البرمجية الخبيثة','حذف الملفات الضارة وسد الثغرات المستغلة في الاختراق','إرجاع الأنظمة المصابة للإنتاج واستعادة النسخ الاحتياطية','صياغة سياسات الأمان، وتشكيل فريق الاستجابة IRT، وتأمين أدوات التدقيق والتدريب المسبق'],ans:3,explain:'مرحلة التحضير هي المرحلة الاستباقية التي تُنفذ قبل وقوع الحوادث، وتتضمن بناء الخطة وتجهيز الأدوات وتدريب الفريق.'},
+{id:34,cat:'إدارة الحوادث',q:'ما الهدف الأساسي لمرحلة «الاحتواء (Containment)» فور التأكد من وقوع حادث أمني بالشبكة؟',choices:['حصر الضرر ومنع التهديد من الانتشار والتنقل الجانبي إلى باقي أجزاء الشبكة والأنظمة','تحليل الأسباب الجذرية للهجوم وتعديل السياسات الأمنية للمؤسسة','إزالة البرمجية الخبيثة كلياً وسد الثغرة المستغلة في السيرفر','اختبار استقرار الخدمة وإعادتها لبيئة التشغيل المباشر'],ans:0,explain:'تهدف مرحلة الاحتواء فوراً إلى عزل الأنظمة أو الأجزاء المصابة للحد من اتساع نطاق التهديد وتأمين باقي الأصول.'},
+{id:35,cat:'إدارة الحوادث',q:'ما الممارسة التي تعبر بدقة عن مرحلة «الاستئصال وإزالة التهديد (Eradication)» أثناء التعامل مع الحادث؟',choices:['عزل الشبكة المصابة مؤقتاً لتجنب انتشار التهديد','التخلص الكامل من البرمجيات الخبيثة وسد الثغرات المستغلة وإزالة المسببات الجذرية للحادث','استعادة قواعد البيانات النظيفة من النسخ الاحتياطية','تدريب فريق الاستجابة على سيناريوهات الاختراق الجديدة'],ans:1,explain:'تختص مرحلة الاستئصال بتنظيف البيئة من آثر الهجوم، عبر إزالة البرمجيات الخبيثة وإلغاء الحسابات المقرصنة وتطبيق الرقع الأمنية.'},
+{id:36,cat:'إدارة الحوادث',q:'ما الإجراء الرئيسي الواجب اتخاذه في مرحلة «الاستعادة والتعافي (Recovery)» في الاستجابة للحوادث؟',choices:['تحديد الهيكل التنظيمي لأعضاء فريق IRT وتدريبهم','إعادة الأنظمة والخدمات المطهّرة إلى بيئة التشغيل الفعلي باختبارات دقيقة واستعادة النسخ الاحتياطية النظيفة','تطبيق عزل شبكي فوري للأجهزة المصابة بالهجمات','إجراء التحقيق الجنائي الرقمي للبحث عن أدلة الهجوم'],ans:1,explain:'تشمل مرحلة الاستعادة إعادة تشغيل الخدمات المطهّرة تدريجياً، مع اختبارها والتحقق من سلامتها واستعادة البيانات الموثوقة.'},
+{id:37,cat:'إدارة الحوادث',q:'ما الأهمية الاستراتيجية لمرحلة «الدروس المستفادة (Lessons Learned)» في ختام عملية التعامل مع الحوادث؟',choices:['توثيق تفاصيل الحادث وتحليل الأسباب الجذرية وتحديث خطط وسياسات الأمان لمنع تكراره مستقبلاً','الحد السريع من الانتشار الشبكي للهجوم في الدقائق الأولى','استرجاع الاتصال الشبكي المباشر مع خوادم الويب العامة','مسح السجلات الأمنية لضمان سرية التحقيقات الجنائية'],ans:0,explain:'تعتبر مرحلة الدروس المستفادة حجر الزاوية للتطوير المستمر، حيث يتم تحليل الثغرات المكتشفة وتحديث خطط الدفاع.'},
+{id:38,cat:'إدارة المخاطر',q:'كيف تُحسب «درجة أو قيمة المخاطرة (Risk Level)» في النماذج القياسية لإدارة المخاطر السيبرانية؟',choices:['درجة المخاطرة = التأثير + الاحتمالية','درجة المخاطرة = التأثير × الاحتمالية (Impact × Likelihood)','درجة المخاطرة = التأثير ÷ الاحتمالية','درجة المخاطرة = التأثير - الاحتمالية'],ans:1,explain:'تُحسب درجة المخاطرة بحاصل ضرب التأثير المتوقع عند حدوث الخطر في احتمالية وقوع هذا الخطر.'},
+{id:39,cat:'إدارة المخاطر',q:'وفق مصفوفة تقييم المخاطر المعتمدة، أي فئات المخاطر يجب التعامل معها فوراً وتأتي في أعلى سلم الأسبقية؟',choices:['المخاطر ذات التأثير المنخفض والاحتمالية المنخفضة','المخاطر ذات التأثير المنخفض والاحتمالية المرتفعة','المخاطر ذات التأثير المرتفع والاحتمالية المرتفعة','المخاطر ذات التأثير المرتفع والاحتمالية المنخفضة'],ans:2,explain:'تحظى المخاطر الحرجة (High Impact & High Likelihood) بالأولوية المباشرة والمطلقة في الخطط والمعالجات الأمنية.'},
+{id:40,cat:'الأمن السيبراني',q:'ما الضابط الشبكي والهيكلي الأقوى لحماية أصول وأنظمة الذكاء الاصطناعي ذات الحساسية القصوى من الهجمات الموجهة عبر الإنترنت؟',choices:['تجهيز جدار حماية شبكي مزدوج في DMZ','تشفير الاتصالات الداخلية باستخدام بروتوكول TLS 1.3','تقسيم الشبكة إلى شبكات افتراضية VLANs مع تفعيل الـ ACLs','فصل السيرفر فيزيائياً وشبكياً عن أي شبكة خارجية كلياً (Air-Gapped Network)'],ans:3,explain:'توفر الشبكة المعزولة فيزيائياً (Air-Gapped) أقوى درجات الحماية للأصول شديدة الحساسية، حيث يتم قطع كافة التوصيلات المادية.'},
+{id:41,cat:'الأمن السيبراني',q:'أي الخيارات التالية يمثل تطبيقاً صريحاً لـ «عامل الحيازة (Possession Factor)» في المصادقة الأجهزة؟',choices:['بطاقة الموظف الذكية (Smart Card) أو تطبيق توليد رموز OTP على الموبايل الشخصي','كلمة المرور النصية أو الرمز السري PIN المكون من أرقام','بصمة الأصبع أو مسح قزحية العين للعين','بصمة الصوت أو النمط السلوكي في الكتابة على لوحة المفاتيح'],ans:0,explain:'يعتمد عامل الحيازة على مقتنيات أجهزة أو أدوات يملكها المستخدم مادياً مثل بطاقة الذكاء أو هاتف ذكي أو مفتاح أمان.'},
+{id:42,cat:'أمن AI',q:'ما الذي يحدث في هجوم «تسميم البيانات (Data Poisoning)» الموجه ضد نماذج الذكاء الاصطناعي؟',choices:['التلاعب العمد بعينات بيانات التدريب لتأطير سلوك النموذج وإدخال تحيزات أو أبواب خلفية مخفية','استعلام النموذج بمعدلات مكثفة لاستخلاص أوزانه العصبية (Model Extraction)','حقن نصوص الموجهات لتجاوز ضوابط الأمان بالنموذج اللغوي (Prompt Injection)','إضافة ضوضاء تنافسية غير مرئية على الصور لتضليل التصنيف (Adversarial Perturbation)'],ans:0,explain:'في هجوم تسميم البيانات، يقوم المهاجم بتعديل أو حقن بيانات خبيثة داخل مجموعة التدريب لإفساد منطق التعلم بالنموذج.'},
+{id:43,cat:'أمن AI',q:'ما الهدف المباشر للهجمات المعروفة بـ «حجب الخدمة الموزع (DDoS)» ضد خوادم خدمات الذكاء الاصطناعي؟',choices:['التنصت على حركة المرور وتعديل حزم البيانات في المنتصف (MitM)','إغراق خوادم المعالجة والنطاق الترددي بطلبات وهمية مكثفة لحرمان المستخدمين الشرعيين من الخدمة','حقن قواعد البيانات بشفرات SQL خبيثة للوصول غير المصرح به','خداع الموظفين عبر رسائل البريد الاحتيالي المخصصة (Spear Phishing)'],ans:1,explain:'تستهدف هجمات DDoS استهلاك موارد المعالجة والنطاق الترددي للسيرفرات من خلال توجيه سيل من الطلبات المزيفة لشل الخدمة.'},
+{id:44,cat:'أمن AI',q:'ما الضابط التقني المطلوب لمنع تسريب أسرار ومعلومات العملاء عبر ذاكرة السياق في النماذج اللغوية الكبيرة (LLMs)؟',choices:['تفعيل التطهير والتفريغ التلقائي الفوري لذاكرة السياق والمؤقتات عقب انتهاء جلسة كل مستخدم','تصفية مدخلات الموجهات عبر جدار حماية التطبيقات WAF فقط','تطبيق تقنية إثبات المعرفة الصفرية (ZKP) أثناء معالجة الجلسة','تشفير مخرجات النموذج باستخدام خوارزمية AES المتماثلة'],ans:0,explain:'يضمن التطهير الفوري لذاكرة الجلسة والسياق مسح بيانات الاستعلام السابقة وعدم إتاحة استخدامها أو تسريبها لعملاء آخرين.'},
+{id:45,cat:'أمن AI',q:'كيف تحمي تقنية «الخصوصية التفاضلية (Differential Privacy)» بيانات الأفراد عند تدريب نماذج الذكاء الاصطناعي؟',choices:['الاحتفاظ بالبيانات الخام محلياً ونقل الأوزان المشفرة فقط (Federated Learning)','حذف المعرفات المباشرة مثل الأسماء وأرقام الهويات فقط (Anonymization)','بإضافة ضوضاء رياضية محسوبة لبيانات التدريب تمنع إعادة التعرف على هويات الأشخاص مع حفظ الأنماط الإحصائية العامة','معالجة البيانات وهي مشفرة كلياً دون فك التشفير (Homomorphic Encryption)'],ans:2,explain:'تضيف الخصوصية التفاضلية ضوضاء رياضياتية مدروسة لمجموعة البيانات، مما يجعل من المستحيل استنتاج هوية أي فرد مع الحفاظ على الفائدة الإحصائية.'},
+{id:46,cat:'الحوسبة الحديثة',q:'ما التكنولوجيا التي تعمل على دمج وإسقاط عناصر ومعلومات افتراضية رقمية فوق مشاهد البيئة الحقيقية المباشرة؟',choices:['الواقع الافتراضي الكامل (VR)','الواقع المعزز (AR)','الواقع المختلط الحسي (MR)','الواقع الممتد الشامل (XR)'],ans:1,explain:'يمزج الواقع المعزز (AR) بين العالم الحقيقي المباشر وعناصر افتراضية رقمية تُسقط فوق الرؤية الحقيقية للمستخدم.'},
+{id:47,cat:'الحوسبة الحديثة',q:'ما الذي يحدد المعنى الدقيق لـ «نمط العمل عن بُعد (Remote Work)» في البيئة الرقمية؟',choices:['العمل الميداني المباشر من المكاتب المجهزة للمؤسسة','نمط العمل الهجين بالتقاسم المتساوي بين المكتب والمنزل','العمل بعقود إنتاجية مرنة دون التقيد بمؤسسة واحدة (Freelancing)','تأدية الموظف لمهامه وأدواره الوظيفية من المنزل أو موقع بعيد باستخدام تقنيات الاتصال والإنترنت'],ans:3,explain:'نمط العمل عن بُعد يتيح للكوادر البشرية ممارسة الوظائف من أي موقع جغرافي خارج مقر العمل التقليدي بالاعتماد على أدوات الاتصال الرقمي.'},
+{id:48,cat:'الحوسبة الحديثة',q:'ما الذي يشير إليه مفهوم «الدفع غير النقدي (Cashless Payment)» في المعاملات المالية الحديثة؟',choices:['تسديد قيمة السلع والخدمات بأساليب وقنوات إلكترونية كالبطاقات الرقمية، المحافظ، ورموز QR دون استخدام العملات الورقية المادية','السداد بالمقايضة المباشرة للسلع والخدمات المتبادلة','الدفع بالعملات الورقية والمعدنية عند منافذ البيع','السداد الآجل عبر الشيكات الورقية المصرفية'],ans:0,explain:'يشمل الدفع غير النقدي كافة المعاملات والأنظمة المالية التي تُسدد فيها قيم المنتجات إلكترونياً دون تداول النقود الورقية.'},
+{id:49,cat:'مفاهيم AI',q:'ما المقصود بـ «بيانات التدريب (Training Data)» في دورة حياة تطوير نموذج الذكاء الاصطناعي؟',choices:['البيانات المخصصة لاختبار دقة النموذج النهائية بعد اكتمال التعلم (Test Data)','مجموعة العينات والأمثلة الرقمية التي يُغذى بها النموذج ليستخلص الأنماط والقواعد قبل تشغيله الميداني','بيانات الضبط الدقيق المستخدمة لمحاذاة السلوك فقط (Fine-tuning Data)','عينات البيانات المستخدمة لمعايرة الفوقية والفرعية (Validation Data)'],ans:1,explain:'بيانات التدريب هي المادة المعرفية الأساسية التي تُدخل للنموذج أثناء مرحلة التعلم لتدريبه على اكتشاف العلاقات والأنماط.'},
+{id:50,cat:'أخلاقيات AI',q:'لماذا تُوصي معايير حوكمة الذكاء الاصطناعي بوجود «العنصر البشري في الحلقة (Human-in-the-Loop)» في القرارات الحساسة؟',choices:['لمراجعة وتأكيد أحكام وقرارات النموذج والتأكد من صوابها لمنع الكوارث الناجمة عن الأخطاء والهلوسة الخوارزمية','التشغيل الذاتي الكامل دون أي تدخل أو مراجعة بشرية (Fully Autonomous)','اقتصار الدور البشري على المراجعة الدورية اللاحقة بعد تنفيذ القرار (Human-on-the-Loop)','إصدار التنبيهات الاستشارية فقط دون منح النموذج أي قدرة تنفيذية'],ans:0,explain:'يُشكل النهج التشاركي Human-in-the-Loop صمام أمان حاسماً يضع خبيراً بشرياً لمراجعة واعتماد القرارات ذات الأثر المباشر.'}
+];
+
+let current = 0;
+let score = 0;
+let results = [];
+let timer = 3600;
+let timerId = null;
+let name = "";
+const CAT_LABELS = {};
+const CAT_CORRECT = {};
+QUESTIONS.forEach(q => { CAT_LABELS[q.cat] = 0; CAT_CORRECT[q.cat] = 0; });
+
+function startExam() {
+  name = document.getElementById('user-name').value.trim();
+  if (!name) return alert("من فضلك أدخل اسمك الثلاثي للمتابعة");
+  document.getElementById('screen-welcome').classList.remove('active');
+  document.getElementById('screen-exam').classList.add('active');
+  startTimer();
+  render();
+}
+
+function startTimer() {
+  timerId = setInterval(() => {
+    timer--;
+    let m = Math.floor(timer / 60);
+    let s = timer % 60;
+    document.getElementById('timer').textContent = `${m}:${s < 10 ? '0' + s : s}`;
+    if (timer <= 0) finish();
+  }, 1000);
+}
+
+function render() {
+  const q = QUESTIONS[current];
+  document.getElementById('q-counter').textContent = `السؤال ${current + 1} / 50`;
+  document.getElementById('progress-fill').style.width = `${(current / 50) * 100}%`;
+  document.getElementById('q-category').textContent = q.cat;
+  document.getElementById('q-text').textContent = q.q;
+  const ca = document.getElementById('code-area');
+  ca.style.display = 'none';
+  const box = document.getElementById('choices-box');
+  box.innerHTML = '';
+  document.getElementById('feedback-area').innerHTML = '';
+  const traits = ['trait-a', 'trait-b', 'trait-c', 'trait-d'];
+  const labels = ['أ', 'ب', 'ج', 'د'];
+  q.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = `choice-btn ${traits[i]}`;
+    btn.innerHTML = `<span class="choice-idx">${labels[i]}</span> ${c}`;
+    btn.onclick = () => select(i, btn);
+    box.appendChild(btn);
+  });
+}
+
+function select(idx, btn) {
+  const q = QUESTIONS[current];
+  const btns = document.querySelectorAll('.choice-btn');
+  btns.forEach(b => b.disabled = true);
+  CAT_LABELS[q.cat]++;
+  const isOk = idx === q.ans;
+  if (isOk) { score++; CAT_CORRECT[q.cat]++; }
+  results.push({qId: q.id, ok: isOk, userAns: idx});
+  if (isOk) btn.classList.add('correct');
+  else { btn.classList.add('wrong'); btns[q.ans].classList.add('correct'); }
+  setTimeout(() => {
+    current++;
+    if (current < 50) render();
+    else finish();
+  }, 1200);
+}
+
+function finish() {
+  clearInterval(timerId);
+  document.getElementById('screen-exam').classList.remove('active');
+  document.getElementById('screen-results').classList.add('active');
+  document.getElementById('final-score').textContent = score;
+  document.getElementById('res-student-name').textContent = name;
+  const ana = document.getElementById('category-analysis');
+  ana.innerHTML = '';
+  Object.keys(CAT_LABELS).forEach(cat => {
+    const total = CAT_LABELS[cat];
+    const ok = CAT_CORRECT[cat];
+    const pct = total > 0 ? (ok / total) * 100 : 0;
+    ana.innerHTML += `
+      <div class="cat-row">
+        <div class="cat-lbl">${cat}</div>
+        <div class="cat-bar-bg"><div class="cat-bar-fill" style="width:${pct}%; background:var(--primary)"></div></div>
+        <div style="font-size:11px; width:35px;">${Math.round(pct)}%</div>
+      </div>`;
+  });
+  const list = document.getElementById('solutions-list');
+  list.innerHTML = '';
+  QUESTIONS.forEach((q, i) => {
+    const res = results[i];
+    if (!res) return;
+    list.innerHTML += `
+      <div class="sol-item ${res.ok ? 'ok' : 'fail'}">
+        <div class="sol-q">سؤال ${i + 1} (${q.cat}): ${q.q}</div>
+        <div style="font-size:12px; color:${res.ok ? 'var(--success)' : 'var(--danger)'}">
+          إجابتك: ${q.choices[res.userAns]} | الإجابة الصحيحة: ${q.choices[q.ans]}
+        </div>
+        <div class="sol-explain"><strong>📖 التفسير:</strong> ${q.explain}</div>
+      </div>`;
+  });
+  const waMsg = `أهلاً بشمهندس محمد شاهين، لقد أتممت اختبار الوحدة الثانية لمادة البرمجة والذكاء الاصطناعي - الصف الثاني الثانوي.%0A%0A👤 الاسم: ${name}%0A🎯 الدرجة: ${score} من 50%0A📊 شكراً على هذا الاختبار الرائع!`;
+  document.getElementById('wa-link').href = `https://api.whatsapp.com/send?phone=201043647668&text=${waMsg}`;
+}
+</script>
+
+</body>
+</html>
+</html>
